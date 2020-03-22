@@ -1,1 +1,2 @@
 # bot
+EPIC BOT VERY COOL
