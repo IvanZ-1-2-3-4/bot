@@ -1,5 +1,5 @@
 import discord as d
-from dsicord.ext import commands
+from discord.ext import commands
 
 class Client(d.Client):
     async def on_ready(self):
@@ -9,4 +9,4 @@ class Client(d.Client):
         print("message from {0.author}: {0.content}".format(message))
 
 c = Client()
-c.run("qmo56QXiXhq4KV_GIg2rR8pSLkZ956ky")
+c.run("NjkyMDQ2MDM5NzI4NzgzMzYw.Xno73A.PAlIq53K53xAiYO5Y5NBv5-oIa0")
