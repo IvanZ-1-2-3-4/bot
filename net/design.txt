@@ -17,6 +17,7 @@ ROUGH
                 -so will need to find derivative of a_n and just take the positive of that because i want to 
                 essentially maximise a_n
                 -backprop equation:
+                -hidden layers will have the same size, no point in complicating it
         4. If P% are impact, image is impact
 
     Things to be determined:
