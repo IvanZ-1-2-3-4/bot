@@ -9,4 +9,4 @@ class Client(d.Client):
         print("message from {0.author}: {0.content}".format(message))
 
 c = Client()
-c.run("NjkyMDQ2MDM5NzI4NzgzMzYw.Xno73A.PAlIq53K53xAiYO5Y5NBv5-oIa0")
+c.run("NjkyMDQ2MDM5NzI4NzgzMzYw.Xno73A. -oIa0")

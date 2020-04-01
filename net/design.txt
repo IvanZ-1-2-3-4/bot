@@ -1,0 +1,26 @@
+ROUGH
+    Outline:
+        An image will be broken up into square grids of size MxM pixels. These grids are going to be fed into a 
+        neural network that will output whether the grid contains impact font or not. The grids have to be large 
+        enough so that they contain around one letter of impact font. It should work well, because it's a thingy
+        with edges, and I suppose at some layer it should learn all the different letter combinations? Then, if 
+        at least P% of the grids in the image have impact font in them, it's an impact font meme.
+    
+    Main algorithm or something like that:
+        1. Downsize image so that on average, an image contains n grids of size MxM pixels MEANING: downsize to M²/wh,
+        where w, h are the dimensions of the original image
+        2. Sample MxM grids, feed in to network.
+        3. Network works like the one in nielsen's book, i guess
+            1. wait how does it actually work
+            NOTES:
+                -inaccuracy/cost function is 1-a_n where a_n (a sub n) is the last neuron.
+                -so will need to find derivative of a_n and just take the positive of that because i want to 
+                essentially maximise a_n
+                -backprop equation:
+        4. If P% are impact, image is impact
+
+    Things to be determined:
+        -Values of M, P, n.
+        -How to get images
+        -How to downsample
+        -How to read images (should be pretty simple)
