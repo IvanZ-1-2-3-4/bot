@@ -25,6 +25,7 @@ class Net:
         for i in range(len(self.trainingData["values"])):
             activations = self.evaluateNet(self.trainingData["values"][i]) # evaluate net on current training example
             print(activations[self.length - 1])
+            
 
     def evaluateNet(self, trainingExample):
         activations = u.initialiseActivations(self.layerSizes, trainingExample)
