@@ -1,3 +1,7 @@
 -FIGURE OUT BACKPROPAGATION
--use discord.py, have to install globally
 -letters in the alphabet that are still available: c,d,e,f,g,h,o,p,q,r,s,t,u,v,x,y
+
+dependencies:
+numpy
+requests
+discord.py
