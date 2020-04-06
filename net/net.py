@@ -7,7 +7,7 @@ Indices should be labeled in the order:
 import numpy as np
 import utils as u
 
-M = 16
+M = 50
 P = 50
 n = 12
 length = 5
