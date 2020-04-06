@@ -7,6 +7,12 @@ Indices should be labeled in the order:
 import numpy as np
 import utils as u
 
+M = 16
+P = 50
+n = 12
+length = 5
+hiddenLayerSize = 5
+
 class Net:
     def __init__(self, trainingData, M, P, n, length, hiddenLayerSize):
         self.trainingData = trainingData
@@ -35,11 +41,10 @@ class Net:
                     print("l: {0}".format(l))
                     print("k: {0}".format(k))
                     print("j: {0}".format(j))
-                    activations[l][k] = activations[l][k] + activations[l - 1][j] * self.weights[l][k][j] # NEEDS FIX
-                    # Layer index is -1 for weights, as there are no weights for first layer
+                    activations[l][k] = activations[l][k] + activations[l - 1][j] * self.weights[l][k][j]
                 activations[l][k] = u.sigmoid(activations[l][k])
         return activations
 
-net = Net("needs to be changed", 16, 50, 12, 5, 5)
+myNet = Net("trainingData - will be passed here, but the system for that is not yet created", M, P, n, length, hiddenLayerSize)
 
-net.train()
+#myNet.train()

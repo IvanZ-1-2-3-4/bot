@@ -8,7 +8,7 @@ ROUGH
     
     Main algorithm or something like that:
         1. Downsize image so that on average, an image contains n grids of size MxM pixels MEANING: downsize to M²/wh,
-        where w, h are the dimensions of the original image
+        total pixels, where w, h are the dimensions of the original image
         2. Sample MxM grids, feed in to network.
         3. Network works like the one in nielsen's book, i guess
             1. wait how does it actually work
@@ -22,6 +22,6 @@ ROUGH
 
     Things to be determined:
         -Values of M, P, n.
-        -How to get images
+        -How to get images ✓
         -How to downsample
-        -How to read images (should be pretty simple)
+        -How to read images (should be pretty simple) ✓
