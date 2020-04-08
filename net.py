@@ -22,7 +22,7 @@ class Net:
         self.length = length
         self.hidden_layer_size = hidden_layer_size
         self.layer_sizes = u.initialise_layer_sizes(self.M, self.length, self.hidden_layer_size)
-        # Initialise weights randomly
+        # Initialise weights randomly - will change once i have actual data
         self.weights = u.initialise_random_weights(self.layer_sizes) # w_l^jk
         self.training_data = u.random_inputs(self.layer_sizes, self.n)
 
@@ -31,7 +31,6 @@ class Net:
         for i in range(len(self.training_data["values"])):
             activations = self.evaluateNet(self.training_data["values"][i]) # evaluate net on current training example
             print(activations[self.length - 1])
-            
 
     def evaluateNet(self, training_example):
         activations = u.intialise_activations(self.layer_sizes, training_example)
