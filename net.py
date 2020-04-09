@@ -1,15 +1,15 @@
-"""
+'''
 Indices should be labeled in the order: 
     1. layer - l
     2. neuron in layer - k
     3. neuron in previous layer - j
-"""
+'''
 import numpy as np
 import utils as u
 
-M = 50
+M = 32
 P = 50
-n = 12
+n = 21
 length = 5
 hidden_layer_size = 5
 
@@ -28,8 +28,8 @@ class Net:
 
     # One iteration of training
     def train(self):
-        for i in range(len(self.training_data["values"])):
-            activations = self.evaluateNet(self.training_data["values"][i]) # evaluate net on current training example
+        for i in range(len(self.training_data['values'])):
+            activations = self.evaluateNet(self.training_data['values'][i]) # evaluate net on current training example
             print(activations[self.length - 1])
 
     def evaluateNet(self, training_example):
@@ -37,13 +37,13 @@ class Net:
         for l in range(1, self.length): # l = layer
             for k in range(self.layer_sizes[l]): # k = neuron
                 for j in range(self.layer_sizes[l - 1]): # j = neurons in previous layer
-                    print("l: {0}".format(l))
-                    print("k: {0}".format(k))
-                    print("j: {0}".format(j))
+                    print('l: {0}'.format(l))
+                    print('k: {0}'.format(k))
+                    print('j: {0}'.format(j))
                     activations[l][k] = activations[l][k] + activations[l - 1][j] * self.weights[l][k][j]
                 activations[l][k] = u.sigmoid(activations[l][k])
         return activations
 
-myNet = Net("training_data - will be passed here, but the system for that is not yet created", M, P, n, length, hidden_layer_size)
+myNet = Net('training_data - will be passed here, but the system for that is not yet created', M, P, n, length, hidden_layer_size)
 
 #myNet.train()
