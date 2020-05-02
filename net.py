@@ -1,5 +1,5 @@
 '''
-Indices should be labeled in the order: 
+Indices should be labeled in the following order: 
     1. layer - l
     2. neuron in layer - k
     3. neuron in previous layer - j
@@ -44,6 +44,6 @@ class Net:
                 activations[l][k] = u.sigmoid(activations[l][k])
         return activations
 
-myNet = Net('training_data - will be passed here, but the system for that is not yet created', M, P, n, length, hidden_layer_size)
-
-#myNet.train()
+if __name__ == '__main__':
+    myNet = Net('training_data - will be passed here, but the system for that is not yet created', M, P, n, length, hidden_layer_size)
+    myNet.train()

@@ -21,7 +21,7 @@ client.on('ready', () => {
     })
 
     let generalChannel = client.channels.get("411249827469328387")
-    const attachment = new Discord.Attachment("https://evarazdin.hr/upload/media/k2/items/src/bf9cef73a47a11e9cfaa23d267525911.jpg")
+    const attachment = new Discord.Attachment("https://eletazdin.hr/upload/media/k2/items/src/bf9cef73a47a11e9cfaa23d267525911.jpg")
     generalChannel.send("Za dom Spremni!")
     generalChannel.send(attachment)
 })
