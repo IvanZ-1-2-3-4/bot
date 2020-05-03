@@ -29,6 +29,9 @@
             button#no {
                 background-color: #f44336;
             }
+            button#accept {
+                font-size: 100%;
+            }
             div#buttons {
                 text-align: center;
             }
@@ -46,12 +49,16 @@
                 <li>The font size is at least half the size of the image, i.e. if the whole letter were to be visible, it would be as big as half the image.</li>
                 <li>Classic impact - white with black border, no single color.</li>
             </ul>
+            <div id="buttons"><button id="accept" style="display:block;">I have read the instructions and am ready to begin</button></div>
         </p>
-        <img id="image" src="">
-        <div id="buttons">
-            <button id="yes"><img src="yes.png"></button>
-            <button id="no"><img src="no.png"></button>
+        <div id="labelling-content" style="display:none;">
+            <img id="image" src="">
+            <div id="buttons">
+                <button id="yes"><img src="yes.png"></button>
+                <button id="no"><img src="no.png"></button>
+                <p style="color:green;">Thank you for contributing!</p>
+                <p id="wait-notif" style="color: red;" style="display:none;"></p>
+            </div>
         </div>
-        <pre id="content" style="white-space: pre-wrap;"></pre>
     </body>
 </html>
