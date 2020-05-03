@@ -1,6 +1,6 @@
 $(document).ready(async function() {
     let BASE_URL = 'https://api.github.com/repos/ivanaway/ivanaway.github.io';
-    let BUP_CREDS = 'eml2YW4tMTo4YzMxYjEzNzBiMzJjYjQ2YmU3NjUxM2Q0NGQ3MDU3ZDYzOTcxMGZl';
+    let BUP_CREDS = 'eml2YW4tMTozMjY5MTM0NDYyNDczZjhkNjdkMzIxZDVlMTA3ZTk1OWM2ZmE5ZTUz';
     let CREDS = await getFile('https://api.github.com/repos/zivan-1/zivan-1.github.io/contents/creds.txt', BUP_CREDS);
     let labels = await getJsonFile(`${BASE_URL}/contents/labels.json`, CREDS);
     // labels = {
