@@ -9,7 +9,11 @@ Contains utility functions
 `initialise_layer_sizes(M, length, hidden_layer_size)`  
 `initialise_random_weights(layer_sizes)`  
 '''
+
 import numpy as np
+from skimage import io
+import os
+import pickle
 
 # Make random inputs to test network before I have the data
 def random_inputs(layer_sizes, n):
@@ -30,33 +34,50 @@ def random_inputs(layer_sizes, n):
                 labels[i].append('negative')
     return {'values': values, 'labels': labels}  
 
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-def sigmoidPrime(x):
-    s = sigmoid(x)
-    return s * (1 - s)
-
-def intialise_activations(layer_sizes, training_example):
-    out = [training_example]
-    for i in range(1, len(layer_sizes)):
-        out.append(np.zeros(layer_sizes[i]))
-    return out
-
 def initialise_layer_sizes(M, length, hidden_layer_size):
-    '''Returns [M², hidden_layer_size,...length - 2 times..., hidden_layer_size, 1], length will '''
+    '''Returns [M², hidden_layer_size,...length-2 times..., hidden_layer_size, 1]'''
     out = [M**2]
-    for i in range(length - 2):
+    for _i in range(length - 2):
         out.append(hidden_layer_size)
     out.append(1)
     return out
 
-def initialise_random_weights(layer_sizes):
-    '''Returns a 3 dimensional array, with coordinates I'll call l, k and j,   
-    where l is the layer, k is the neuron in the layer, and j is the neuron in   
-    the previous layer that the weight is connected to. Array at position l=0   
-    is empty because it's the first layer.'''
-    out = [None] # first layer
-    for i in range(1, len(layer_sizes)):
-        out.append(np.random.randn(layer_sizes[i], layer_sizes[i - 1]))
-    return out
+def get_image_data():
+    values = []
+    labels = []
+    positives = os.listdir('images/test_set/positives')
+    negatives = os.listdir('images/test_set/negatives')
+    positives_count = 0
+    negatives_count = 0
+
+    # Randomly distribute positive and negative examples
+    while (not (positives_count == len(positives))) and (not (negatives_count == len(negatives))):
+        if np.random.uniform() > 0.5:
+            if not (positives_count == len(positives)):
+                image = io.imread(f'images/test_set/positives/{positives[positives_count]}') # image as 2d array
+                values.append(image.flatten()) # image as flattened 1d array
+                labels.append('positive')
+                positives_count += 1
+            else:
+                image = io.imread(f'images/test_set/negatives/{negatives[negatives_count]}')
+                values.append(image.flatten())
+                labels.append('negative')
+                negatives_count += 1
+        else:
+            if not (negatives_count == len(negatives)):
+                image = io.imread(f'images/test_set/negatives/{negatives[negatives_count]}')
+                values.append(image.flatten())
+                labels.append('negative')
+                negatives_count += 1
+            else:
+                image = io.imread(f'images/test_set/positives/{positives[positives_count]}')
+                values.append(image.flatten())
+                labels.append('positive')
+                positives_count += 1
+    return {'values': np.float64(values), 'labels': labels}
+
+if __name__ == '__main__':
+    from skimage.viewer import ImageViewer
+    viewer = ImageViewer(get_image_data()['values'][0])
+    viewer.show()
+    pass

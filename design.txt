@@ -21,10 +21,10 @@ ROUGH
                 essentially maximise a_n
                 -backprop equation:
                 -hidden layers will have the same size, no point in complicating it
-        4. If P% are impact, image is impact
+        4. If ≥P% are impact, image is impact
 
     Things to be determined:
-        -Values of M, P, S
+        -Values of M=32✓, P
         -How to get images ✓
         -How to downsample ✓
         -How to read images (should be pretty simple) ✓

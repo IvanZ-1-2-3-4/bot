@@ -33,8 +33,8 @@ async function start() {
     //     }
     // }
     updateImage(BASE_URL, CREDS, labels, imageIndex, imageElement);
-    yesButton.addEventListener('click', () => clickHandler(BASE_URL, CREDS, imageIndex, imageElement, delay, true));
-    noButton.addEventListener('click', () => clickHandler(BASE_URL, CREDS, imageIndex, imageElement, delay, false));
+    yesButton.addEventListener('click', () => clickHandler(BASE_URL, CREDS, labels, imageIndex, imageElement, delay, true));
+    noButton.addEventListener('click', () => clickHandler(BASE_URL, CREDS, labels, imageIndex, imageElement, delay, false));
 
     acceptButton.addEventListener('click', () => {
         document.getElementById('labelling-content').style = ('display:block;');
@@ -42,7 +42,7 @@ async function start() {
     });
 }
 
-function clickHandler(baseUrl, creds, imageIndex, imageElement, delay, isImpact) {
+function clickHandler(baseUrl, creds, labels, imageIndex, imageElement, delay, isImpact) {
     if (allowClick) {
         allowClick = false;
         // Get name of image
