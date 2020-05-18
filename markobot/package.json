@@ -1,0 +1,24 @@
+{
+  "name": "squonkbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "complex.js": "^2.0.11",
+    "decimal.js": "^10.0.1",
+    "discord.js": "^11.4.2",
+    "escape-latex": "^1.1.1",
+    "fraction.js": "^4.0.10",
+    "javascript-natural-sort": "^0.7.1",
+    "mathjs": "^5.2.2",
+    "seed-random": "^2.2.0",
+    "tiny-emitter": "^2.0.2",
+    "typed-function": "^1.1.0"
+  }
+}
