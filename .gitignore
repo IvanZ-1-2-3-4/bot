@@ -3,3 +3,6 @@ images
 markobot/node_modules
 .env
 markobot
+.vscode
+__pycache__
+.ipynb_checkpoints
