@@ -8,7 +8,7 @@ import numpy as np
 import utils as u
 import pickle
 
-M = 32
+M = 100
 P = 50
 n = 21 # prety redundant
 LENGTH = 3
@@ -16,8 +16,12 @@ HIDDEN_LAYER_SIZE = 16
 LEARNING_RATE = 0.1
 
 class ImpactNetV3:
-    '''Now with biases! And retraining on previous examples for some reason cause this is stupid'''
-    def __init__(self, M, learning_rate, length, hidden_layer_size, training_data=None, activations_function='sigmoid', weights=None, biases=None):
+    '''Now with biases! And retraining on previous examples for some reason cause this I don't actually have data.....'''
+    def __init__(
+        self, M, learning_rate, length, hidden_layer_size, training_data=None, 
+        activation_function_type='sigmoid', cost_function_type='quadratic', 
+        weights=None, biases=None
+    ):
         self.training_data = training_data
         if not self.training_data: print('NOTICE: No training data has been passed.')
         self.M = M # grids are of dimensions MxM
@@ -28,7 +32,8 @@ class ImpactNetV3:
         self.layer_sizes = self.initialise_layer_sizes(self.M, self.length, self.hidden_layer_size)
         if not weights: self.weights = self.initialise_random_weights() # w_l^kj
         if not biases: self.biases = self.intialise_random_biases()
-        self.activation_function_type = activations_function
+        self.activation_function_type = activation_function_type
+        self.cost_function_type = cost_function_type
         self.training_data = training_data
         self.trained = False # If net has been trained before
 
@@ -76,10 +81,16 @@ class ImpactNetV3:
         expectation = None
         if expectation_in == 'positive': expectation = 1
         elif expectation_in == 'negative': expectation = 0
-        return {
-            'value': (expectation - value)**2,
-            'dc_da': -2 * (expectation - value)
-        }
+        if self.cost_function_type == 'quadratic':
+            return {
+                'value': (expectation - value)**2,
+                'dc_da': -2 * (expectation - value)
+            }
+        elif self.cost_function_type == 'cross-entropy':
+            return {
+                'value': expectation * np.log(value) + (1 - expectation) * np.log(1 - value),
+                'dc_da': ((expectation / value) - ((1- expectation) / (1 - value)))
+            }
     
     def feedforward(self, training_example):
         activations = self.intialise_network_values(training_example) # Empty array of activation vectors for each layer
@@ -136,19 +147,37 @@ class ImpactNetV3:
                 'derivative': s * (1.0 - s)
             }
         elif self.activation_function_type == 'relu':
-            r = 0
-            r_prime = 0
-            if x >= 0: 
-                r = x
-                r_prime = 1
             return {
-                'value': r,
-                'derivative': r_prime
+                'value': x * (x > 0),
+                'derivative': 1.0 * (x > 0)
+            }
+        if self.activation_function_type == 'identity':
+            return {
+                'value': x,
+                'derivative': 1
             }
         
 
-def create_default_net(activation_function_type='sigmoid'):
-    return ImpactNetV3(M, LEARNING_RATE, LENGTH, HIDDEN_LAYER_SIZE, u.get_image_data())
+def create_default_net(
+    M=M, 
+    learning_rate=LEARNING_RATE, 
+    length=LENGTH, 
+    hidden_layer_size=HIDDEN_LAYER_SIZE,
+    training_data=u.get_image_data(),
+    activation_function_type='sigmoid',
+    cost_function_type='cross-entropy',
+    weights=None, biases=None
+):
+    return ImpactNetV3(
+        M, 
+        learning_rate, 
+        length, 
+        hidden_layer_size, 
+        training_data, 
+        activation_function_type,
+        cost_function_type,
+        weights, biases
+    )
 
 def fetch_trained_net(file):
     return pickle.load(open(file, 'rb'))
@@ -158,6 +187,3 @@ if __name__ == '__main__':
     net.train(True)
     #pickle.dump(net.weights, open('trained_netv2_weights.pickle', 'wb'))
     #pickle.dump(net, open('trained_netv2.pickle', 'wb'))
-else:
-    tn = ImpactNetV3(M, LEARNING_RATE, LENGTH, HIDDEN_LAYER_SIZE, u.random_inputs(u.initialise_layer_sizes(M, LENGTH, HIDDEN_LAYER_SIZE), n))
-    print(f'Test network tn created with args: (M={M}, LEARNING_RATE={LEARNING_RATE}, LENGTH={LENGTH}, HIDDEN_LAYER_SIZE={HIDDEN_LAYER_SIZE}, TRAINING_DATA=RANDOM_INPUTS)')

@@ -8,11 +8,9 @@ from skimage import io
 from skimage import color
 from skimage import transform
 from skimage.viewer import ImageViewer as image_viewer # oh image viewer you little bitchfucker listen here you think you're so damn cool and clever and edgy going against conventions and naming your fucking letiables with camelcase when you know FULL WELL that the convention is to use underscore well let me tell you what, you just got fucking outsmarted in the most humiliating and simply elegant manner possible. so maybe reconsider your fucking decision of being a special little snowflake hm? make the code a little more readable and gain a smidge of fucking respect from actual coders, or yknow, don't, not that I care since I can just rename your bullshit however i like since that's how python works, not that you'd know anything about that
-from net import M, n
+from net3 import M, n
 from urllib.error import HTTPError, URLError
 import pickle
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
 import sys
 
 if not (len(sys.argv) == 2):
@@ -20,19 +18,19 @@ if not (len(sys.argv) == 2):
 
 get_request = sys.argv[1]
 
-words = sys.argv[1].split('&q')[1].split('&oq')[0].split('=')[1].split('+')
-print_string = 'Scraping google images for search query "' + words[0]
-for word in words[1::]:
-    print_string = print_string + ' ' + word
-print(print_string + '"')
+# words = sys.argv[1].split('&q')[1].split('&oq')[0].split('=')[1].split('+')
+# print_string = 'Scraping google images for search query "' + words[0]
+# for word in words[1::]:
+#     print_string = print_string + ' ' + word
+# print(print_string + '"')
 
 target_image_size = M**2 * n
 time_delay = 1
 short_time_delay = 0.1
 
-net_images_folder_id = '1K3gh-dgHkkIgV1XrNTIegzwmPc96VU0A'
-creds = pickle.load(open('token.pickle', 'rb'))
-service = build('drive', 'v3', credentials=creds)
+# net_images_folder_id = '1K3gh-dgHkkIgV1XrNTIegzwmPc96VU0A'
+# creds = pickle.load(open('token.pickle', 'rb'))
+# service = build('drive', 'v3', credentials=creds)
 
 wd = webdriver.Chrome(executable_path = r'C:\\bin\\chromedriver.exe') # put driver in c:\bin
 wd.get(get_request)
@@ -45,13 +43,13 @@ def find_by_xpath(xpath):
     except:
         return False
 
-def upload_image(img_name, img_url):
-    try:
-        file_metadata = {'name': img_name, 'parents': [net_images_folder_id]}
-        media = MediaFileUpload(img_url, mimetype='image/png')
-        service.files().create(body = file_metadata, media_body = media, fields = 'id').execute()
-    except:
-        pass
+# def upload_image(img_name, img_url):
+#     try:
+#         file_metadata = {'name': img_name, 'parents': [net_images_folder_id]}
+#         media = MediaFileUpload(img_url, mimetype='image/png')
+#         service.files().create(body = file_metadata, media_body = media, fields = 'id').execute()
+#     except:
+#         pass
 
 def process_image(image, image_counter):
     try:
@@ -93,7 +91,7 @@ def process_image(image, image_counter):
                     img_name = '{0}.png'.format(image_counter)
                     img_url = 'images/{0}'.format(img_name)
                     io.imsave(img_url, grid)
-                    upload_image(img_name, img_url)
+                    # upload_image(img_name, img_url)
                     os.remove(img_url)
                     image_counter = image_counter + 1
             
@@ -114,6 +112,30 @@ def process_image(image, image_counter):
     # return image_counter to keep track of counter SINCE YOU CAN'T PASS BY REFERENCE
     return image_counter
 
+def process_image_whole(image, image_counter):
+    counter_local = image_counter
+    try:
+        # download image
+        src = image.get_attribute('src')
+        wget.download(src, 'images/temp.png')
+        
+        edit_image = io.imread(os.path.abspath('images/temp.png'))
+
+        target_image_dimension = 100
+        edit_image = transform.resize(edit_image, (target_image_dimension, target_image_dimension))
+        
+        # convert to grayscale
+        edit_image = color.rgb2gray(edit_image)
+
+        # save image
+        io.imsave(f'images/net_images_whole/{image_counter}.png', edit_image)
+
+        counter_local += 1
+    except (HTTPError, URLError, ValueError):
+        pass
+    try: os.remove('images/temp.png')
+    except: pass
+    return counter_local
 
 # scroll to bottom
 while not find_by_xpath("//div[@class=\"OuJzKb Bqq24e\" and text()=\"Looks like you've reached the end\"]"):
@@ -124,7 +146,7 @@ while not find_by_xpath("//div[@class=\"OuJzKb Bqq24e\" and text()=\"Looks like 
         button.click()
 wd.execute_script('window.scrollTo(0, document.body.scrollHeight);')
 
-image_counter = 7478
+image_counter = 505
 for img in wd.find_elements_by_css_selector('img.rg_i'):
     try:
         img.click()
@@ -133,5 +155,5 @@ for img in wd.find_elements_by_css_selector('img.rg_i'):
         continue
     for actual_image in wd.find_elements_by_xpath('//img[@class=\'n3VNCb\']'):
         if actual_image.is_displayed():
-            image_counter = process_image(actual_image, image_counter)
+            image_counter = process_image_whole(actual_image, image_counter)
     time.sleep(short_time_delay)

@@ -5,7 +5,7 @@ function echo(input) {
   console.log(input);
 }
 
-client.login("NDU1NTI5Mjc0ODUwNjcyNjQx.DruwsA.tJpQPP3Mr4E01ftQZaKZq-1Opps") 
+client.login("") 
 
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
