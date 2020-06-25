@@ -8,7 +8,7 @@ import numpy as np
 import utils as u
 import pickle
 
-M = 100
+M = 32
 P = 50
 n = 21 # prety redundant
 LENGTH = 3
@@ -165,7 +165,7 @@ def create_default_net(
     hidden_layer_size=HIDDEN_LAYER_SIZE,
     training_data=u.get_image_data(),
     activation_function_type='sigmoid',
-    cost_function_type='cross-entropy',
+    cost_function_type='quadratic',
     weights=None, biases=None
 ):
     return ImpactNetV3(

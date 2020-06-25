@@ -13,11 +13,11 @@ ROUGH
                 -images are not going to perfectly divide into MxM grids, so:
                 -if a row of grids with M does not fit into the width of the image,
                     -
-        3. Network works like the one in nielsen's book, i guess
+        3. Network works like the one in nielsen's book, I guess
             1. wait how does it actually work
             NOTES:
                 -inaccuracy/cost function is 1-a_n where a_n (a sub n) is the last neuron
-                -so will need to find derivative of a_n and just take the positive of that because i want to 
+                -so will need to find derivative of a_n and just take the positive of that because I want to 
                 essentially maximise a_n
                 -backprop equation:
                 -hidden layers will have the same size, no point in complicating it
@@ -28,3 +28,17 @@ ROUGH
         -How to get images ✓
         -How to downsample ✓
         -How to read images (should be pretty simple) ✓
+
+
+
+NEW AND IMPROVED
+    Outline:
+        Image will be pre-processed:
+            to find areas with highest acutance and greatest contrast between black and white, and those areas will be brightened up. 
+            The center third of the image will be deliberately darkened. As well as this, the whiteness of an area will increase how 
+            much it is brightened up, though this will have a lower impact on the brightening.
+        These pre-processed images will be downsized to fit into a neural network of a reasonable size. What I'll end up with will be 
+        that impact font memes have a big blob of white at the top and bottom, and the net will assign high weights to these areas, so 
+        it will work nicely.
+
+        -Should emphasize vertical/horizontal edges

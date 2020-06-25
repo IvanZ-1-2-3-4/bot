@@ -27,7 +27,7 @@ class ImpactNetV1:
         self.hidden_layer_size = hidden_layer_size
         self.layer_sizes = self.initialise_layer_sizes(self.M, self.length, self.hidden_layer_size)
         self.weights = self.initialise_random_weights(self.layer_sizes) # w_l^jk
-        # Initialise inputs randomly - will change once i have actual data
+        # Initialise inputs randomly - will change once I have actual data
         self.training_data = training_data
 
     def train(self, logging=False):

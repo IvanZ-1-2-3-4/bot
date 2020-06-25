@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from skimage import io
 from skimage import color
 from skimage import transform
-from skimage.viewer import ImageViewer as image_viewer # oh image viewer you little bitchfucker listen here you think you're so damn cool and clever and edgy going against conventions and naming your fucking variables with camelcase when you know FULL WELL that the convention is to use underscore well let me tell you what, you just got fucking outsmarted in the most humiliating and simply elegant manner possible. so maybe reconsider your fucking decision of being a special little snowflake hm? make the code a little more readable and gain a smidge of fucking respect from actual coders, or yknow, don't, not that I care since I can just rename your bullshit however i like since that's how python works, not that you'd know anything about that
+from skimage.viewer import ImageViewer as image_viewer # oh image viewer you little bitchfucker listen here you think you're so damn cool and clever and edgy going against conventions and naming your fucking variables with camelcase when you know FULL WELL that the convention is to use underscore well let me tell you what, you just got fucking outsmarted in the most humiliating and simply elegant manner possible. so maybe reconsider your fucking decision of being a special little snowflake hm? make the code a little more readable and gain a smidge of fucking respect from actual coders, or yknow, don't, not that I care since I can just rename your bullshit however I like since that's how python works, not that you'd know anything about that
 from net import M, n
 from urllib.error import HTTPError
 import pickle
